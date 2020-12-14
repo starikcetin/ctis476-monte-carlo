@@ -59,43 +59,6 @@ void Simulation::soldierAct(const Soldier* actingSoldier, const std::list<Soldie
 	}
 }
 
-// returns enemies that are in range of the soldier
-std::list<Soldier*> getInRange(const Soldier* actingSoldier, const std::list<Soldier*> enemies)
-{
-	std::list<Soldier*> inRange;
-
-	auto const squaredRange = powf(actingSoldier->getRange(), 2);
-	auto const soldierLoc = actingSoldier->getLocation();
-
-	for (Soldier* it : enemies)
-	{
-		auto const itLoc = it->getLocation();
-		auto const sqDist = soldierLoc.squaredDistanceTo(itLoc);
-
-		if (sqDist <= squaredRange) 
-		{
-			inRange.push_back(it);
-		}
-	}
-
-	return inRange;
-}
-
-// returns alive soldiers in the given list
-std::list<Soldier*> getAlives(const std::list<Soldier*> soldiers) 
-{
-	std::list<Soldier*> alives;
-
-	for (Soldier* soldier : soldiers)
-	{
-		if (!soldier->isDead()) {
-			alives.push_back(soldier);
-		}
-	}
-
-	return alives;
-}
-
 // if there are targets in range, shoots one of them at random and returns true
 // if there are no targets in range returns false
 bool Simulation::tryShoot(const Soldier* actingSoldier, const std::list<Soldier*> aliveEnemies)
@@ -113,9 +76,15 @@ bool Simulation::tryShoot(const Soldier* actingSoldier, const std::list<Soldier*
 }
 
 // shotoer shoots at the target. if killed, target is marked dead
-void Simulation::tryKill(const Soldier* shooter, const Soldier* target)
+void Simulation::tryKill(const Soldier* shooter, Soldier* target)
 {
-	throw "tryKill is not implemented yet";
+	auto const shooterProbOfKill = shooter->getProbabilityOfKill();
+	auto const randNum = generateProbability();
+
+	if (randNum <= shooterProbOfKill) 
+	{
+		target->kill();
+	}
 }
 
 // moves the soldier towards an enemy selected randomly
@@ -147,6 +116,43 @@ float Simulation::generateProbability() const
 {
 	float random = (float)(rand() % 1000) / 1000.0f;
 	return random;
+}
+
+// returns enemies that are in range of the soldier
+std::list<Soldier*> getInRange(const Soldier* actingSoldier, const std::list<Soldier*> enemies)
+{
+	std::list<Soldier*> inRange;
+
+	auto const squaredRange = powf(actingSoldier->getRange(), 2);
+	auto const soldierLoc = actingSoldier->getLocation();
+
+	for (Soldier* it : enemies)
+	{
+		auto const itLoc = it->getLocation();
+		auto const sqDist = soldierLoc.squaredDistanceTo(itLoc);
+
+		if (sqDist <= squaredRange)
+		{
+			inRange.push_back(it);
+		}
+	}
+
+	return inRange;
+}
+
+// returns alive soldiers in the given list
+std::list<Soldier*> getAlives(const std::list<Soldier*> soldiers)
+{
+	std::list<Soldier*> alives;
+
+	for (Soldier* soldier : soldiers)
+	{
+		if (!soldier->isDead()) {
+			alives.push_back(soldier);
+		}
+	}
+
+	return alives;
 }
 
 template<typename T>

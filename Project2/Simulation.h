@@ -66,7 +66,7 @@ namespace CTIS476 {
 	private:
 		void soldierAct(const Soldier * actingSoldier, const std::list<Soldier*> aliveEnemies);
 		bool tryShoot(const Soldier * actingSoldier, const std::list<Soldier*> aliveEnemies);
-		void tryKill(const Soldier * shooter, const Soldier * target);
+		void tryKill(const Soldier * shooter, Soldier * target);
 		void move(const Soldier * actingSoldier, const std::list<Soldier*> aliveEnemies);
 	};
 
