@@ -62,7 +62,12 @@ namespace CTIS476 {
 		void kill();
 		void setLocation(LocationStruct location) throw(SoldierException);
 
-		//this method applies the provisional state, call at the end of each iteration
+		// returns if the soldier was shot and killed this iteration 
+		// in other words, returns if the soldier will be dead next iteration
+		bool provisionalIsDead() const;
+
+		//this method applies the provisional state to the current state
+		//call at the end of each iteration
 		void applyProvisionalState();
 	};
 }

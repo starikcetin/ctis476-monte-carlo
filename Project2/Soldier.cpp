@@ -30,6 +30,7 @@ void Soldier::setLocation(LocationStruct location) throw(SoldierException)
 		provisionalLocation = location;
 	}
 }
+
 void Soldier::kill()
 {
 	if (isDead())
@@ -71,6 +72,11 @@ bool Soldier::isDead() const
 {
 	//return true if the soldier is dead
 	return !currentIsAlive;
+}
+
+bool CTIS476::Soldier::provisionalIsDead() const
+{
+	return !provisionalIsAlive;
 }
 
 void CTIS476::Soldier::applyProvisionalState()
