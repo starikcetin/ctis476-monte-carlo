@@ -28,6 +28,18 @@ namespace CTIS476 {
 
 	class Soldier
 	{
+	private:
+		LocationStruct initialLocation;
+		float initialSpeed;
+		float initialProbabilityOfKill;
+		float initialRange;
+		bool initialIsAlive;
+		LocationStruct currentLocation;
+		float currentSpeed;
+		float currentProbabilityOfKill;
+		float currentRange;
+		bool currentIsAlive;
+
 	public:
 		//constructor
 		Soldier(LocationStruct location, float speed, float probabilityOfKill, float range);
