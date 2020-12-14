@@ -19,9 +19,14 @@ Simulation::~Simulation()
 void Simulation::initialize()
 {
 	for (Soldier* soldier : blues)
+	{
 		soldier->initialize();
+	}
+
 	for (Soldier* soldier : reds)
+	{
 		soldier->initialize();
+	}
 }
 void Simulation::iterate()
 {
@@ -30,6 +35,7 @@ void Simulation::iterate()
 	//BEWARE: Model execution order problem
 
 }
+
 bool Simulation::isCompleted()
 {
 	return true;
