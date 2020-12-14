@@ -18,12 +18,30 @@ namespace CTIS476 {
 		}
 	};
 
+	// also repurposed as a Vector2 in simulation code
 	struct LocationStruct
 	{
 		LocationStruct(float x, float y) :x(x), y(y) {}
 		LocationStruct() = default;
 		float x;
 		float y;
+
+		LocationStruct operator-(const LocationStruct& rhs) const {
+			return LocationStruct(x - rhs.x, y - rhs.y);
+		}
+
+		LocationStruct operator+(const LocationStruct& rhs) const {
+			return LocationStruct(x + rhs.x, y + rhs.y);
+		}
+
+		float squaredDistanceTo(const LocationStruct& other) const {
+			auto diff = *this - other;
+			return (diff.x * diff.x) + (diff.y * diff.y);
+		}
+
+		float distanceTo(const LocationStruct& other) const {
+			return sqrtf(this->squaredDistanceTo(other));
+		}
 	};
 
 	class Soldier
