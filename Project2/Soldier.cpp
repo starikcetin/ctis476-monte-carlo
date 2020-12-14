@@ -5,11 +5,11 @@ using namespace CTIS476;
 Soldier::Soldier(LocationStruct location, float speed, float probabilityOfKill, float range)
 {
 	//initialize your model data
-	this->initialLocation = location;
-	this->initialSpeed = speed;
-	this->initialProbabilityOfKill = probabilityOfKill;
-	this->initialRange = range;
-	this->initialIsAlive = true;
+	initialLocation = location;
+	initialSpeed = speed;
+	initialProbabilityOfKill = probabilityOfKill;
+	initialRange = range;
+	initialIsAlive = true;
 
 	initialize();
 }
@@ -27,7 +27,7 @@ void Soldier::setLocation(LocationStruct location) throw(SoldierException)
 	else
 	{
 		//set location
-		this->currentLocation = location;
+		currentLocation = location;
 	}
 }
 void Soldier::kill()
@@ -39,46 +39,46 @@ void Soldier::kill()
 	else
 	{
 		//set alive status
-		this->currentIsAlive = false;
+		currentIsAlive = false;
 	}
 }
 
 const LocationStruct& Soldier::getLocation() const
 {
 	//return location of the model
-	return this->currentLocation;
+	return currentLocation;
 }
 
 float Soldier::getRange() const
 {
 	//return range of the object
-	return this->currentRange;
+	return currentRange;
 }
 
 float Soldier::getProbabilityOfKill() const
 {
 	//return PoK of the object
-	return this->currentProbabilityOfKill;
+	return currentProbabilityOfKill;
 }
 
 float Soldier::getSpeed() const
 {
 	//return speed of the object
-	return this->currentSpeed;
+	return currentSpeed;
 }
 
 bool Soldier::isDead() const
 {
 	//return true if the soldier is dead
-	return !(this->currentIsAlive);
+	return !(currentIsAlive);
 }
 
 void Soldier::initialize()
 {
 	//do initialization to return everything to its initial status
-	this->currentLocation = this->initialLocation;
-	this->currentSpeed = this->initialSpeed;
-	this->currentProbabilityOfKill = this->initialProbabilityOfKill;
-	this->currentRange = this->initialRange;
-	this->currentIsAlive = this->initialIsAlive;
+	currentLocation = initialLocation;
+	currentSpeed = initialSpeed;
+	currentProbabilityOfKill = initialProbabilityOfKill;
+	currentRange = initialRange;
+	currentIsAlive = initialIsAlive;
 }
