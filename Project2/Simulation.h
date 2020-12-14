@@ -61,6 +61,13 @@ namespace CTIS476 {
 			std::cout << "" << val << std::endl;
 #endif	
 		}
+
+		// custom implementations
+	private:
+		void soldierAct(const Soldier * actingSoldier, const std::list<Soldier*> aliveEnemies);
+		bool tryShoot(const Soldier * actingSoldier, const std::list<Soldier*> aliveEnemies);
+		void tryKill(const Soldier * shooter, const Soldier * target);
+		void move(const Soldier * actingSoldier, const std::list<Soldier*> aliveEnemies);
 	};
 
 }
