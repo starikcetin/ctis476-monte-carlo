@@ -74,12 +74,12 @@ bool Soldier::isDead() const
 	return !currentIsAlive;
 }
 
-bool CTIS476::Soldier::provisionalIsDead() const
+bool Soldier::provisionalIsDead() const
 {
 	return !provisionalIsAlive;
 }
 
-void CTIS476::Soldier::applyProvisionalState()
+void Soldier::applyProvisionalState()
 {
 	currentLocation = provisionalLocation;
 	currentIsAlive = provisionalIsAlive;

@@ -114,13 +114,13 @@ void Simulation::move(Soldier* actingSoldier, const std::list<Soldier*> aliveEne
 
 bool Simulation::isCompleted()
 {
-	return true;
+	return isEradicated(blues) || isEradicated(reds);
 }
 
 void Simulation::getNumberOfAlive(int& blue, int& red)
 {
-	blue = 0;
-	red = 0;
+	blue = getNumberOfAliveOnSide(blues);
+	red = getNumberOfAliveOnSide(reds);
 	//calculate the number of survivors in each side
 }
 
@@ -128,7 +128,7 @@ int Simulation::getScore()
 {
 	//calculate the score
 	//look header explanations
-	return 0;
+	return getNumberOfAliveOnSide(blues) - getNumberOfAliveOnSide(reds);
 }
 
 float Simulation::generateProbability() const
@@ -138,7 +138,7 @@ float Simulation::generateProbability() const
 }
 
 // returns enemies that are in range of the soldier
-std::list<Soldier*> getInRange(const Soldier* actingSoldier, const std::list<Soldier*> enemies)
+std::list<Soldier*> Simulation::getInRange(const Soldier* actingSoldier, const std::list<Soldier*> enemies)
 {
 	std::list<Soldier*> inRange;
 
@@ -160,7 +160,7 @@ std::list<Soldier*> getInRange(const Soldier* actingSoldier, const std::list<Sol
 }
 
 // returns alive soldiers in the given list
-std::list<Soldier*> getAlives(const std::list<Soldier*> soldiers)
+std::list<Soldier*> Simulation::getAlives(const std::list<Soldier*> soldiers)
 {
 	std::list<Soldier*> alives;
 
@@ -174,14 +174,35 @@ std::list<Soldier*> getAlives(const std::list<Soldier*> soldiers)
 	return alives;
 }
 
+bool Simulation::isEradicated(const std::list<Soldier*> side) const
+{
+	return getNumberOfAliveOnSide(side) <= 0;
+}
+
+int Simulation::getNumberOfAliveOnSide(const std::list<Soldier*> side) const
+{
+	int numAlive = side.size();
+
+	for (auto soldier : side)
+	{
+		if (soldier->isDead())
+		{
+			numAlive--;
+		}
+	}
+
+	return numAlive;
+}
+
 template<typename T>
-int randomIndex(const std::list<T>& list)
+int Simulation::randomIndex(const std::list<T>& list) const
 {
 	return rand() % list.size();
 }
 
 template<typename T>
-T randomItem(const std::list<T>& list)
+T Simulation::randomItem(const std::list<T>& list) const
 {
-	return list[randomIndex(list)];
+	auto const index = randomIndex(list);
+	return *std::next(list.begin(), index);
 }

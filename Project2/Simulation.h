@@ -68,6 +68,16 @@ namespace CTIS476 {
 		bool tryShoot(const Soldier* actingSoldier, const std::list<Soldier*> aliveEnemies);
 		void tryKill(const Soldier* shooter, Soldier* target);
 		void move(Soldier* actingSoldier, const std::list<Soldier*> aliveEnemies);
+		std::list<Soldier*> getAlives(const std::list<Soldier*> soldiers);
+		bool isEradicated(const std::list<Soldier*> side) const;
+		int getNumberOfAliveOnSide(const std::list<Soldier*> side) const;
+		std::list<Soldier*> getInRange(const Soldier * actingSoldier, const std::list<Soldier*> enemies);
+
+		template<typename T>
+		int randomIndex(const std::list<T>& list) const;
+
+		template<typename T>
+		T randomItem(const std::list<T>& list) const;
 	};
 
 }
