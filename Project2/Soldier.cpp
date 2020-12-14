@@ -27,7 +27,7 @@ void Soldier::setLocation(LocationStruct location) throw(SoldierException)
 	else
 	{
 		//set location
-		currentLocation = location;
+		provisionalLocation = location;
 	}
 }
 void Soldier::kill()
@@ -39,7 +39,7 @@ void Soldier::kill()
 	else
 	{
 		//set alive status
-		currentIsAlive = false;
+		provisionalIsAlive = false;
 	}
 }
 
@@ -70,7 +70,13 @@ float Soldier::getSpeed() const
 bool Soldier::isDead() const
 {
 	//return true if the soldier is dead
-	return !(currentIsAlive);
+	return !currentIsAlive;
+}
+
+void CTIS476::Soldier::applyProvisionalState()
+{
+	currentLocation = provisionalLocation;
+	currentIsAlive = provisionalIsAlive;
 }
 
 void Soldier::initialize()
@@ -81,4 +87,7 @@ void Soldier::initialize()
 	currentProbabilityOfKill = initialProbabilityOfKill;
 	currentRange = initialRange;
 	currentIsAlive = initialIsAlive;
+
+	provisionalLocation = initialLocation;
+	provisionalIsAlive = initialIsAlive;
 }

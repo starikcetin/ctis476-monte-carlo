@@ -39,6 +39,8 @@ namespace CTIS476 {
 		float currentProbabilityOfKill;
 		float currentRange;
 		bool currentIsAlive;
+		LocationStruct provisionalLocation;
+		bool provisionalIsAlive;
 
 	public:
 		//constructor
@@ -59,5 +61,8 @@ namespace CTIS476 {
 		//action methods
 		void kill();
 		void setLocation(LocationStruct location) throw(SoldierException);
+
+		//this method applies the provisional state, call at the end of each iteration
+		void applyProvisionalState();
 	};
 }
