@@ -49,7 +49,7 @@ void Simulation::iterate()
 	}
 }
 
-void Simulation::soldierAct(const Soldier* actingSoldier, const std::list<Soldier*> aliveEnemies)
+void Simulation::soldierAct(Soldier* actingSoldier, const std::list<Soldier*> aliveEnemies)
 {
 	auto const didShoot = tryShoot(actingSoldier, aliveEnemies);
 
@@ -88,9 +88,16 @@ void Simulation::tryKill(const Soldier* shooter, Soldier* target)
 }
 
 // moves the soldier towards an enemy selected randomly
-void Simulation::move(const Soldier* actingSoldier, const std::list<Soldier*> aliveEnemies) 
+void Simulation::move(Soldier* actingSoldier, const std::list<Soldier*> aliveEnemies) 
 {
-	throw "tryMove is not implemented yet";
+	auto const target = randomItem(aliveEnemies);
+
+	auto const targetLoc = target->getLocation();
+	auto const loc = actingSoldier->getLocation();
+	auto const speed = actingSoldier->getSpeed();
+
+	auto const moveDelta = (targetLoc - loc).normalized() * speed;
+	actingSoldier->setLocation(loc + moveDelta);
 }
 
 bool Simulation::isCompleted()

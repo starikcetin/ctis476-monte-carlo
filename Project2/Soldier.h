@@ -34,6 +34,14 @@ namespace CTIS476 {
 			return LocationStruct(x + rhs.x, y + rhs.y);
 		}
 
+		LocationStruct operator*(const float rhs) const {
+			return LocationStruct(x * rhs, y * rhs);
+		}
+
+		LocationStruct operator/(const float rhs) const {
+			return LocationStruct(x / rhs, y / rhs);
+		}
+
 		float squaredDistanceTo(const LocationStruct& other) const {
 			auto diff = *this - other;
 			return (diff.x * diff.x) + (diff.y * diff.y);
@@ -41,6 +49,18 @@ namespace CTIS476 {
 
 		float distanceTo(const LocationStruct& other) const {
 			return sqrtf(this->squaredDistanceTo(other));
+		}
+
+		float squaredMagnitude() const {
+			return (x * x) + (y * y);
+		}
+
+		float magnitude() const {
+			return sqrtf(squaredMagnitude());
+		}
+
+		LocationStruct normalized() const {
+			return *this / magnitude();
 		}
 	};
 
