@@ -38,6 +38,7 @@ void Simulation::iterate()
 	auto const aliveReds = getAlives(reds);
 	auto const aliveBlues = getAlives(blues);
 
+	// act
 	for (Soldier* blue: aliveBlues)
 	{
 		soldierAct(blue, aliveReds);
@@ -46,6 +47,17 @@ void Simulation::iterate()
 	for (Soldier* red : aliveReds)
 	{
 		soldierAct(red, aliveBlues);
+	}
+
+	// apply provisional states
+	for (Soldier* blue : aliveBlues)
+	{
+		blue->applyProvisionalState();
+	}
+
+	for (Soldier* red : aliveReds)
+	{
+		red->applyProvisionalState();
 	}
 }
 
