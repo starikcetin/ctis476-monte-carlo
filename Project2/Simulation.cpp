@@ -165,7 +165,7 @@ std::list<Soldier*> getAlives(const std::list<Soldier*> soldiers)
 template<typename T>
 int randomIndex(const std::list<T>& list)
 {
-	return rand() % (list.size() + 1);
+	return rand() % list.size();
 }
 
 template<typename T>
