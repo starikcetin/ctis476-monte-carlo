@@ -38,16 +38,23 @@ void Simulation::iterate()
 	auto const aliveReds = getAlives(reds);
 	auto const aliveBlues = getAlives(blues);
 
+	writeWithTab("Blues: ");
+
 	// act
-	for (Soldier* blue: aliveBlues)
+	for (Soldier* blue: blues)
 	{
 		soldierAct(blue, aliveReds);
 	}
 
-	for (Soldier* red : aliveReds)
+	writeln();
+	writeWithTab("Reds : ");
+
+	for (Soldier* red : reds)
 	{
 		soldierAct(red, aliveBlues);
 	}
+
+	writeln();
 
 	// apply provisional states
 	for (Soldier* blue : aliveBlues)
@@ -63,6 +70,12 @@ void Simulation::iterate()
 
 void Simulation::soldierAct(Soldier* actingSoldier, const std::list<Soldier*> aliveEnemies)
 {
+	if (actingSoldier->isDead()) 
+	{
+		write(".");
+		return;
+	}
+
 	auto const didShoot = tryShoot(actingSoldier, aliveEnemies);
 
 	if (false == didShoot)
@@ -95,13 +108,20 @@ void Simulation::tryKill(const Soldier* shooter, Soldier* target)
 
 	if (randNum <= shooterProbOfKill) 
 	{
+		write("+");
 		target->kill();
+	}
+	else 
+	{
+		write("-");
 	}
 }
 
 // moves the soldier towards an enemy selected randomly
 void Simulation::move(Soldier* actingSoldier, const std::list<Soldier*> aliveEnemies) 
 {
+	write("M");
+
 	auto const target = randomItem(aliveEnemies);
 
 	auto const targetLoc = target->getLocation();
