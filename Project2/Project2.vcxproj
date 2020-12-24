@@ -110,7 +110,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="main_01_SingleTest.cpp" />
+    <ClCompile Include="main_04_RealTest.cpp" />
     <ClCompile Include="Simulation.cpp" />
     <ClCompile Include="Soldier.cpp" />
   </ItemGroup>

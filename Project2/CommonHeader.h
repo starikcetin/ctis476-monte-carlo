@@ -12,6 +12,12 @@ void printSizes(int b, int r)
 
 void runSimulation(Simulation& s, int numOfRuns)
 {
+	int occurences[201];
+	for (int i = 0; i < 201; i++)
+	{
+		occurences[i] = 0;
+	}
+
 	int blueWins = 0;
 	int redWins = 0;
 	int draws = 0;
@@ -34,6 +40,7 @@ void runSimulation(Simulation& s, int numOfRuns)
 		} while (s.isCompleted() == false);
 
 		auto res = s.getScore();
+		occurences[res + 100]++;
 
 		if (res == 0)
 		{
@@ -56,8 +63,21 @@ void runSimulation(Simulation& s, int numOfRuns)
 #endif	
 			redWins++;
 		}
+
+#ifndef PRINT_LOGS
+		auto runsLeft = numOfRuns - i - 1;
+		auto secondsLeft = runsLeft / 16;
+	std::cout << "Finished: " << i + 1 << "\tLeft: " << numOfRuns - i - 1 << "\tETA: " << secondsLeft/3600 << ":" << (secondsLeft/60)%60 << ":" << secondsLeft%60 << "				\r";
+#endif // !PRINT_LOGS
+
 	}
 
+	std::cout << "-----------------DISTRIBUTIONS----------------------" << std::endl;
+	for (int i = 0; i < 201; i++)
+	{
+		std::cout << i - 100 << " " << occurences[i] << std::endl;
+	}
+	std::cout << std::endl;
 
 	std::cout << "-----------------WINS----------------------" << std::endl;
 	std::cout << "Blue:" << (float)blueWins / (float)numOfRuns << std::endl;
